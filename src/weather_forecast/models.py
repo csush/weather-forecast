@@ -8,8 +8,13 @@ class GeocodeModel:
         self.latitude = geocode_data["latitude"]
         self.longitude = geocode_data["longitude"]
 
-    def __repr__(self) -> str:
-        return f"GeocodeModel(name={self.name})"
+    def to_dict(self) -> dict:
+        return {
+            "name": self.name,
+            "country": self.country,
+            "latitude": self.latitude,
+            "longitude": self.longitude
+        }
     
     @staticmethod
     def from_list_to_objects(geocode_data: List[dict]):
@@ -22,23 +27,30 @@ class WeatherDailyModel:
         self.temperature_2m_max = daily_data["temperature_2m_max"]
         self.temperature_2m_min = daily_data["temperature_2m_min"]
 
-    def __repr__(self) -> str:
-        return f"WeatherDailyModel(time={self.time}, temperature_2m_max={self.temperature_2m_max}, temperature_2m_min={self.temperature_2m_min})"
+    def to_dict(self) -> dict:
+        return {
+            "time": self.time,
+            "temperature_2m_max": self.temperature_2m_max,
+            "temperature_2m_min": self.temperature_2m_min
+        }
 
 
 class WeatherModel:
     def __init__(self, weather_data: dict) -> None:
         self.geocode_model = weather_data["geocode_model"]
         self.daily = weather_data["daily"]
-    
-    def __repr__(self) -> str:
-        return f"WeatherModel(geocode_model={self.geocode_model}, daily={self.daily})"
+
+    def to_dict(self) -> dict:
+        return {
+            "geocode_model": self.geocode_model.to_dict(),
+            "daily": self.daily.to_dict()
+        }
 
     @staticmethod
     def from_response_to_objects(geocode_objs: List[GeocodeModel], response: List[dict]):
         if len(geocode_objs) != len(response):
             raise Exception("Length of geocode objects and response objects should be equal")
-        
+
         combined_weather_data = [
             {
                 "geocode_model": geocode_objs[i],

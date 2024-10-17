@@ -2,10 +2,7 @@ import os
 import asyncio
 from typing import List
 import httpx
-from dotenv import load_dotenv
 from weather_forecast.models import GeocodeModel, WeatherModel
-
-load_dotenv()
 
 
 class GeocodingService:
@@ -121,21 +118,3 @@ class HistoricalWeatherService:
             geocode_objs=geocode_objs,
             response=response.json()
         )
-
-
-if __name__ == "__main__":
-    geocoding_service = GeocodingService()
-    forecasting_service = ForecastingService()
-    historical_weather_service = HistoricalWeatherService()
-
-    cities = ["New York", "London"]
-    geocoded_cities = geocoding_service.run(cities)
-    forecasted_weather = forecasting_service.get_forecast(geocoded_cities)
-    historical_weather = historical_weather_service.get_historical_weather(
-        geocoded_cities,
-        "2023-01-01",
-        "2023-01-07"
-    )
-
-    print(forecasted_weather)
-    print(historical_weather)
