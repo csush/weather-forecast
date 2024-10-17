@@ -223,6 +223,6 @@ requires-dist = [
     { name = "djangorestframework", specifier = ">=3.15.2" },
     { name = "httpx", specifier = ">=0.27.2" },
     { name = "pytest", specifier = ">=8.3.3" },
-    { name = "pytest-asyncio" },
+    { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
