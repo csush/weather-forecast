@@ -19,7 +19,7 @@ class PlanHolidayView(APIView):
     """
     Plan your holiday
     """
-    def get(self, request, format=None):
+    def get(self, request):
         serializer = PlanHolidayInSerializer(data=request.data)
         if serializer.is_valid():
             destinations = serializer.data["destinations"]
@@ -59,3 +59,5 @@ class PlanHolidayView(APIView):
                     return Response(out_serializer.errors, status=400)
             except Exception as e:
                 return Response({"error": str(e)}, status=400)
+        else:
+            return Response(serializer.errors, status=400)
