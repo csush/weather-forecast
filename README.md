@@ -16,6 +16,7 @@ An API that takes as input a list of destinations and a start and an end date. I
 - From a product POV:
   - It gives out a list of weather forecasts for a list of destinations for the next 7 days, and the historical weather from 1 year before the start date to the end date. Which is a basic way of holiday planning, and it can be improved by getting the exact schedule from city to city as opposed to getting the weather info for all cities on all days.
   - Due to limitation of Open Meteo API, it only gives out the weather forecast for the next 16 days, however for the sake of simplicity, I set the forecasting days to 7.
+  - It fetches temperature_max and temperature_min data points. Other data points can be added if needed.
 
 ## Running the application
 
@@ -23,6 +24,12 @@ To run the application, run the following command:
 
 ```bash
 docker compose up
+```
+
+To run the sample_request.py script, install python uv (https://docs.astral.sh/uv/) for python version management, dependency management, and virtual environment. Then, run the following command (while the compose is up):
+
+```bash
+uv run python sample_request.py
 ```
 
 ## API
@@ -188,7 +195,7 @@ docker compose up
 
 ## Running the tests
 
-To run the tests, install python uv (https://docs.astral.sh/uv/) for python version management, dependency management, and virtual environment.
+To run the tests, install python uv (https://docs.astral.sh/uv/) if you haven't already.
 Then, run the following command:
 ```bash
 uv run make test
