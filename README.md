@@ -2,6 +2,8 @@
 
 An API that takes as input a list of destinations and a start and an end date. It returns a list of weather forecasts for each destination for the next 7 days, and the historical weather from 1 year before the start date to the end date.
 
+**Time taken from start to finish**: about 4 hours. I took a bit longer than the allotted time because I hadn't worked with `uv` before and I wanted to experiment with it.
+
 ## Developer Notes
 
 - This is a basic API server built using Django Rest Framework. The API is defined in the `weather_forecast/api/v1/views.py` file.
