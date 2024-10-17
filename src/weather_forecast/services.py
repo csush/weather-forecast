@@ -5,6 +5,9 @@ import httpx
 from weather_forecast.models import GeocodeModel, WeatherModel
 
 
+"""
+Service class for geocoding a list of cities
+"""
 class GeocodingService:
     def __init__(self):
         self.geocoding_api_url = os.getenv("GEOCODING_API_URL")
@@ -40,11 +43,11 @@ class GeocodingService:
         except Exception as e:
             raise Exception(f"Error fetching geocoding for {city}: {e}")
     
-    '''
+    """
     The `asyncio.gather()` function ensures that the sequence of output of results matches
     the sequence of the input of tasks. This is important for the
     `ForecastModel.from_response_to_objects()` method to work correctly.
-    '''
+    """
     async def _get_geocoding_async(self, cities: List[str]):
         async with httpx.AsyncClient() as client:
             tasks = [self._get_geocoding(client, city) for city in cities]
@@ -56,6 +59,10 @@ class GeocodingService:
         return GeocodeModel.from_list_to_objects(geocode_data=geocode_data)
 
 
+"""
+Service class for forecasting the weather for a list of cities for a given number of days.
+By default, the forecast is for 7 days.
+"""
 class ForecastingService:
     def __init__(self):
         self.open_meteo_api_url = os.getenv("OPEN_METEO_API_URL")
@@ -87,6 +94,10 @@ class ForecastingService:
         )
 
 
+"""
+Service class for getting historical weather data for a list of cities based on a
+start and end date.
+"""
 class HistoricalWeatherService:
     def __init__(self):
         self.historical_data_api_url = os.getenv("HISTORICAL_DATA_API_URL")
